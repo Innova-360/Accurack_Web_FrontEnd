@@ -55,10 +55,10 @@ function Enterprise() {
         />
         <div className="overflow-hidden">
           <div className="flex animate-scroll space-x-4 w-max">
-            {[...Array(2)].flatMap(() =>
+            {[...Array(2)].flatMap((_, outerIdx) =>
               ["enterprise1.png", "enterprise2.png", "enterprise3.png", "enterprise4.png"].map((img, idx) => (
                 <img
-                  key={`${img}-${idx}`}
+                  key={`${outerIdx}-${img}-${idx}`}  // unique key now!
                   src={`/${img}`}
                   alt={`Enterprise card ${idx + 1}`}
                   className="w-64 flex-shrink-0"
@@ -66,6 +66,7 @@ function Enterprise() {
               ))
             )}
           </div>
+
         </div>
       </div>
 
