@@ -1,7 +1,7 @@
-// // components/LandingPageComponents/ChatSupport.tsx
 // import { IoMdSend } from 'react-icons/io';
 // import React, { useState } from 'react';
 // import CalendlyWidget from './CalendlyWidget';
+// import knowledgeBase from './KnowledgeBase.ts';
 
 // function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
 //   type Message = { sender: string; time: string; text: string };
@@ -20,52 +20,94 @@
 //   const handleSend = async (text?: string) => {
 //     const message = text !== undefined ? text : input;
 //     if (!message.trim()) return;
+//     setInput(''); // Clear input after sending
 
-//     // Booking flow logic
-//     if (bookingState !== 'idle') {
-//       if (bookingState === 'name') {
-//         setUserInfo(prev => ({ ...prev, name: message }));
-//         addMessage('user', message);
-//         setInput('');
-//         addMessage('Accurack', 'Thanks! Now please provide your email address.');
-//         setBookingState('email');
-//       } else if (bookingState === 'email') {
-//         setUserInfo(prev => ({ ...prev, email: message }));
-//         addMessage('user', message);
-//         setInput('');
-//         addMessage('Accurack', 'Awesome! Here’s my calendar, pick a time that works for you:');
-//         setBookingState('calendly');
-//       }
+//     // // Booking flow logic and demo scheduling
+//     // if (bookingState === 'name') {
+//     //   setUserInfo(prev => ({ ...prev, name: message }));
+//     //   addMessage('user', message);
+//     //   setInput('');
+//     //   addMessage('Accurack', 'Thanks! Now please provide your email address.');
+//     //   setBookingState('email');
+//     //   return;
+//     // } else if (bookingState === 'email') {
+//     //   setUserInfo(prev => ({ ...prev, email: message }));
+//     //   addMessage('user', message);
+//     //   setInput('');
+//     //   addMessage('Accurack', 'Awesome! Here’s my calendar, pick a time that works for you:');
+//     //   setBookingState('calendly');
+//     //   return;
+//     // } else if (bookingState === 'idle' && /schedule.*demo/i.test(message)) {
+//     //   addMessage('Accurack', "I'd be happy to help schedule a demo. What's your name?");
+//     //   setBookingState('name');
+//     //   setInput('');
+//     //   return;
+//     // }
+
+
+
+
+//     const shouldScheduleDemo = (msg: string) => {
+//       const normalized = msg.toLowerCase().replace(/[^a-z\s]/g, '');
+//       return /s[ck]h?e?d?u?l?e?.*(demo|meeting|call)/i.test(normalized);
+//     };
+
+//     if (bookingState === 'name') {
+//       setUserInfo(prev => ({ ...prev, name: message }));
+//       addMessage('user', message);
+//       setInput('');
+//       addMessage('Accurack', 'Thanks! Now please provide your email address.');
+//       setBookingState('email');
+//       return;
+//     } else if (bookingState === 'email') {
+//       setUserInfo(prev => ({ ...prev, email: message }));
+//       addMessage('user', message);
+//       setInput('');
+//       addMessage('Accurack', 'Awesome! Here’s my calendar, pick a time that works for you:');
+//       setBookingState('calendly');
+//       return;
+//     } else if (bookingState === 'idle' && shouldScheduleDemo(message)) {
+//       addMessage('user', message);
+//       setInput('');
+//       addMessage('Accurack', "I'd be happy to help schedule a demo. What's your name?");
+//       setBookingState('name');
 //       return;
 //     }
 
+
+
+//     // Trial request logic
+//     const isFreeTrialRequest = (msg: string) => {
+//       const normalized = msg.toLowerCase().replace(/[^a-z\s]/g, '');
+//       return /(free\s?trial|start.*trial|try.*free|sign.*up.*trial)/i.test(normalized);
+//     };
+
+
+
+
+
 //     addMessage('user', message);
 
-//     // 🚨 Check for "schedule a demo" BEFORE hitting the API
-//     if (/schedule.*demo/i.test(message)) {
-//       addMessage('Accurack', "I'd be happy to help schedule a demo. What's your name?");
-//       setBookingState('name');
-//       setInput('');
-//       return; // stop here, don't call the API
-//     }
-
+//     // 🧠 Send to backend with knowledge base
 //     try {
 //       const response = await fetch('http://localhost:3000/api/chatbot', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ message }),
+//         body: JSON.stringify({
+//           message,
+//           knowledgeBase, // 👈 attach it here!
+//         }),
 //       });
 
 //       const data = await response.json();
-//       addMessage('Accurack', data.reply || "Sorry, something went wrong!");
+//       addMessage('Accurack', data.reply || "Hmm, I couldn't find an answer. Try rephrasing?");
 //     } catch (err) {
 //       console.error('❌ Chatbot error:', err);
-//       addMessage('Accurack', "Oops, couldn't connect to the server. Try again later.");
+//       addMessage('Accurack', "Oops, I had trouble connecting. Try again in a bit.");
 //     }
 
 //     if (!text) setInput('');
 //   };
-
 
 //   const handleQuickSend = (msg: string) => {
 //     handleSend(msg);
@@ -159,9 +201,14 @@
 
 
 
+
+
+
+
 import { IoMdSend } from 'react-icons/io';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CalendlyWidget from './CalendlyWidget';
+import knowledgeBase from './KnowledgeBase.ts';
 
 function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
   type Message = { sender: string; time: string; text: string };
@@ -172,49 +219,83 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
   const [bookingState, setBookingState] = useState<'idle' | 'name' | 'email' | 'calendly'>('idle');
   const [userInfo, setUserInfo] = useState({ name: '', email: '' });
 
+  const bottomRef = useRef<HTMLDivElement | null>(null); // 👈 ref for auto-scroll
+
   const addMessage = (sender: string, text: React.ReactNode) => {
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     setMessages(prev => [...prev, { sender, time: now, text: String(text) }]);
   };
 
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   const handleSend = async (text?: string) => {
     const message = text !== undefined ? text : input;
     if (!message.trim()) return;
+    setInput(''); // Clear input after sending
 
-    // Booking flow logic
-    if (bookingState !== 'idle') {
-      if (bookingState === 'name') {
-        setUserInfo(prev => ({ ...prev, name: message }));
-        addMessage('user', message);
-        setInput('');
-        addMessage('Accurack', 'Thanks! Now please provide your email address.');
-        setBookingState('email');
-      } else if (bookingState === 'email') {
-        setUserInfo(prev => ({ ...prev, email: message }));
-        addMessage('user', message);
-        setInput('');
-        addMessage('Accurack', 'Awesome! Here’s my calendar, pick a time that works for you:');
-        setBookingState('calendly');
-      }
+    // // Booking flow logic and demo scheduling
+    // if (bookingState === 'name') {
+    //   setUserInfo(prev => ({ ...prev, name: message })); addMessage('user', message); setInput('');
+    //   addMessage('Accurack', 'Thanks! Now please provide your email address.');
+    //   setBookingState('email'); return;
+    // } else if (bookingState === 'email') {
+    //   setUserInfo(prev => ({ ...prev, email: message })); addMessage('user', message); setInput('');
+    //   addMessage('Accurack', 'Awesome! Here’s my calendar, pick a time that works for you:');
+    //   setBookingState('calendly'); return;
+    // } else if (bookingState === 'idle' && /schedule.*demo/i.test(message)) {
+    //   addMessage('Accurack', "I'd be happy to help schedule a demo. What's your name?");
+    //   setBookingState('name'); setInput(''); return;
+    // }
+
+    const shouldScheduleDemo = (msg: string) => {
+      const normalized = msg.toLowerCase().replace(/[^a-z\s]/g, '');
+      return /s[ck]h?e?d?u?l?e?.*(demo|meeting|call)/i.test(normalized);
+    };
+
+    if (bookingState === 'name') {
+      setUserInfo(prev => ({ ...prev, name: message }));
+      addMessage('user', message);
+      setInput('');
+      addMessage('Accurack', 'Thanks! Now please provide your email address.');
+      setBookingState('email');
+      return;
+    } else if (bookingState === 'email') {
+      setUserInfo(prev => ({ ...prev, email: message }));
+      addMessage('user', message);
+      setInput('');
+      addMessage('Accurack', 'Awesome! Here’s my calendar, pick a time that works for you:');
+      setBookingState('calendly');
+      return;
+    } else if (bookingState === 'idle' && shouldScheduleDemo(message)) {
+      addMessage('user', message);
+      setInput('');
+      addMessage('Accurack', "I'd be happy to help schedule a demo. What's your name?");
+      setBookingState('name');
       return;
     }
+
+    const isFreeTrialRequest = (msg: string) => {
+      const normalized = msg.toLowerCase().replace(/[^a-z\s]/g, '');
+      return /(free\s?trial|start.*trial|try.*free|sign.*up.*trial)/i.test(normalized);
+    };
 
     addMessage('user', message);
 
-    // Detect booking request
-    if (/schedule.*demo/i.test(message)) {
-      addMessage('Accurack', "I'd be happy to help schedule a demo. What's your name?");
-      setBookingState('name');
-      setInput('');
+    if (isFreeTrialRequest(message)) {
+      addMessage('Accurack', `You can sign up for a free 14-day trial on this page. During the trial, you'll have the option to book time with an Accurack expert to assist you further. Is there anything else you'd like to explore with Accurack today?`);
       return;
     }
 
-    // 🧠 Send user message to backend (KnowledgeBase added there)
     try {
       const response = await fetch('http://localhost:3000/api/chatbot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userMessage: message }),
+        body: JSON.stringify({
+          message,
+          knowledgeBase,
+        }),
       });
 
       const data = await response.json();
@@ -269,6 +350,9 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
             <CalendlyWidget userName={userInfo.name} userEmail={userInfo.email} />
           </div>
         )}
+
+        {/* 👇 Auto-scroll anchor */}
+        <div ref={bottomRef} />
       </div>
 
       {/* Quick buttons */}

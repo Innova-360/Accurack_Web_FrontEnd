@@ -1,9 +1,5 @@
+const knowledgeBase: string = `
 
-
-
-
-
- `
 # Accurack Knowledge Base
 
 ## **1. Store Registration and Management**
@@ -108,6 +104,6 @@
 ### **Managing Notifications**
 - Users can dismiss or mark notifications as **read**.
 - Notifications will appear as alerts or in a **Notifications tab**.
-`
+`;
 
-
+export default knowledgeBase;
