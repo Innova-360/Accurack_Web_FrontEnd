@@ -30,6 +30,9 @@ function Header() {
 
       {/* Buttons + Hamburger / Cross */}
       <div className="flex items-center gap-2.5">
+        <Link to="/dashboard">
+          <SecondaryButton cssClasses='sec-button-hover'>Dashboard</SecondaryButton>
+        </Link>
         <SecondaryButton cssClasses='sec-button-hover'>Sign in</SecondaryButton>
         <div className="hidden lg:block">
           <PrimaryButton>Request Demo</PrimaryButton>
