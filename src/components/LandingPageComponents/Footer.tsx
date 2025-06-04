@@ -40,7 +40,7 @@ function Footer() {
                         <div className="flex justify-center md:justify-start space-x-3 mt-10 cursor-pointer">
                             <FaFacebook size={32} />
                             <FaTwitterSquare size={32} />
-                            <FaInstagram size={32} />
+                            <Link to="https://www.instagram.com/accurackai?igsh=MW9lc2x4MWgxZmY5NA=="><FaInstagram size={32} /></Link>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@ function Footer() {
                         <h3 className="font-semibold mb-7 text-[var(--primary-color)]">Resources</h3>
                         <ul className="space-y-2">
                             <li><Link to="#">Free eBooks</Link></li>
-                            <li><Link to="#">Development Tutorial</Link></li>
+                            <li><Link to="#">Setup Tutorial</Link></li>
                             <li><Link to="#">How to - Blog</Link></li>
                             <li><Link to="#">Youtube Playlist</Link></li>
                         </ul>
