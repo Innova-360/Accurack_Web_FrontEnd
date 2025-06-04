@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+:root {
+  --primary-color: #117D90;
+  --dark-primary: #03414C;
+  --text-gray: #475569;
+  --bg-icon-dark: #093C45;
+  --header-color:#F3FDFF;
+}
+
+.button-hover {
+  transition: background 0.5s ease-in-out 5s;
+  cursor: pointer;
+}
+
+.button-hover:hover {
+  background: linear-gradient(30deg, var(--primary-color) 50%, #065B6A 100%) !important;
+}
+
+.sec-button-hover:hover{
+  border: none !important;
+  cursor: pointer;
+}
+
+
+.on-hover:hover{
+    cursor: pointer;
+    color: #F3FDFF;
+    background-color: var(--dark-primary);
+}
+
+.on-hover:hover img {
+  filter: brightness(0) invert(1); /* makes it white-ish */
+}
+
+
+.fonts{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight:500;
+}
+
+.hero-input{
+  all: unset;
+  padding: 7px;
+  border: 1px solid #117D90;
+  border-radius: 5px;
+}
+
+
+@keyframes marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+.animate-move {
+  animation: marquee 15s linear infinite;
+}
+
+@layer utilities {
+  @keyframes scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 20s linear infinite;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .media-hero-text {
+    @apply text-center items-center justify-center;
+  }
+
+  .top-margin{
+    @apply mt-10;
+  }
+
+  .hero-input{
+    width: 50%;
+}
+}
+
+
+@media (min-width:768px){
+  .top-margin{
+    margin-top: 160px;
+  }
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> 30cf7a89131e1cfcd9b379bbef424e6505935aa5
