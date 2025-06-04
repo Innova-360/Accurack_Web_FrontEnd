@@ -5,6 +5,7 @@
 
 
 import { IoMdSend } from 'react-icons/io';
+import { ImCross } from "react-icons/im";
 import React, { useState, useRef, useEffect } from 'react';
 import CalendlyWidget from './CalendlyWidget';
 import knowledgeBase from './KnowledgeBase.ts';
@@ -31,6 +32,8 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
 
   const trialLink = 'https://app.accurack.com/signup?ref=chatbot';
   const freeTrialMessage = `You can sign up for a free 14-day trial ${trialLink}. During the trial, you'll have the option to book time with an Accurack expert to assist you further. Is there anything else you'd like to explore with Accurack today?`;
+
+  // setInput("Hi there! I'm Sam, an AI Assistant here at Cin7. If you need anything, just let me know!");
 
   const handleSend = async (text?: string) => {
     const message = text !== undefined ? text : input;
@@ -118,7 +121,7 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-[3%] right-[3%] w-[90%] sm:w-[320px] md:w-[380px] bg-white border border-gray-300 rounded-xl shadow-2xl z-[999999] flex flex-col overflow-hidden text-[13px] sm:text-[14px]">
+    <div className="fixed bottom-[3%] right-[3%] w-[90%] sm:w-[320px] md:w-[380px] bg-white border border-gray-300 rounded-xl shadow-2xl z-[999999] flex flex-col overflow-hidden text-[13px] sm:text-[14px] min-h-[60vh]">
       {/* Header */}
       <div className="bg-[var(--primary-color)] text-white px-3 py-2 sm:px-4 sm:py-3 flex items-center justify-between rounded-t-xl">
         <div className="flex items-center gap-2 sm:gap-3">
@@ -133,15 +136,27 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
           </div>
         </div>
         <button onClick={() => { setVisible(false); setIsChatOpen(false); }} className="text-white hover:text-gray-200">
-          <IoMdSend size={18} />
+          <ImCross size={15} />
         </button>
       </div>
 
       {/* Messages */}
+
       <div className="flex-1 overflow-y-auto max-h-[250px] sm:max-h-[300px] px-3 py-2 space-y-2 text-sm bg-gray-50">
+
+        {/* Static Hi message */}
+        <div className="p-2 sm:p-3 rounded-lg max-w-[85%] bg-white shadow">
+
+          <p>Hi there! I'm Sam, an AI Assistant here at Accurack AI. If you need anything, just let me know!</p>
+          {/* <span className="text-[9px] text-gray-500 block mt-1">{msg.time}</span> */}
+        </div>
+
+
+
         {messages.map((msg, idx) => (
           <div key={idx} className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
             <div className={`p-2 sm:p-3 rounded-lg max-w-[85%] ${msg.sender === 'user' ? 'bg-blue-100' : 'bg-white shadow'}`}>
+
               <p>{msg.text}</p>
               <span className="text-[9px] text-gray-500 block mt-1">{msg.time}</span>
             </div>
@@ -162,15 +177,15 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
       <div className="flex justify-between px-2 py-2 sm:px-3 sm:py-2 gap-1 sm:gap-2 bg-white text-xs sm:text-sm">
         <button
           onClick={() => handleQuickSend("I'd like to schedule a demo.")}
-          className="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full py-1 px-1 transition-all"
+          className="flex-1 border-1 border-[#007f91] bg-white hover:bg-[#007f91] text-[#007f91] hover:text-white rounded-full py-1 px-1 transition-all"
         >
-          🗓️ Demo
+          Schedule Demo
         </button>
         <button
           onClick={() => handleQuickSend("I'd like to start a free trial.")}
-          className="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full py-1 px-1 transition-all"
+          className="flex-1 border-1 border-[#007f91] bg-white hover:bg-[#007f91] text-[#007f91] hover:text-white rounded-full py-1 px-1 transition-all"
         >
-          📊 Trial
+          Start a Trial
         </button>
       </div>
 

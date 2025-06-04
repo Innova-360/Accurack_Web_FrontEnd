@@ -22,7 +22,6 @@
 
 
 
-
 import { motion } from 'framer-motion';
 
 function Automated() {
@@ -35,7 +34,7 @@ function Automated() {
       </div>
 
       {/* Grid of Images with Animation */}
-      <div className="md:grid md:grid-cols-2 lg:grid lg:grid-cols flex flex-col justify-center gap-15 mt-24 place-items-center px-4">
+      <div className="md:grid md:grid-cols-2 lg:grid lg:grid-cols flex flex-col justify-center items-center gap-14 mt-24 max-w-6xl mx-auto w-full">
         {['left', 'right', 'left', 'right'].map((direction, index) => (
           <motion.div
             key={index}
@@ -43,8 +42,9 @@ function Automated() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="w-full flex justify-center"
           >
-            <img src={`/Automated1.svg`} className="size-[90%]" alt="picture" />
+            <img src={`/Automated${index+1}.png`} className="max-w-[540px] w-full md:w-[440px] lg:w-[540px] h-auto object-contain" alt="picture" />
           </motion.div>
         ))}
       </div>

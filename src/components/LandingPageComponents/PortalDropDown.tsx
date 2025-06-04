@@ -35,7 +35,6 @@ const links = [
   'Features',
   'Industries',
   'Resources',
-  'Pricing',
   'Request Demo',
 ];
 

@@ -25,7 +25,6 @@ function Header() {
         <Link to="#">Features</Link>
         <Link to="#">Industries</Link>
         <Link to="#">Resources</Link>
-        <Link to="#">Pricing</Link>
       </div>
 
       {/* Buttons + Hamburger / Cross */}
