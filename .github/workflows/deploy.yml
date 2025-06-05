@@ -10,26 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: ⬇️ Checkout Code
         uses: actions/checkout@v2
 
-      - name: Setup Node
+      - name: 🧰 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: 📦 Install Dependencies
         run: npm install
 
-      - name: Create .env.production file
+      - name: 🛠️ Create .env.production file
         run: |
           echo "VITE_CHATBOT_LINK=${{ secrets.VITE_CHATBOT_LINK }}" >> .env.production
           echo "VITE_LEADS_LINK=${{ secrets.VITE_LEADS_LINK }}" >> .env.production
 
-      - name: Build React App
+      - name: 🏗️ Build React App
         run: npm run build
 
-      - name: Deploy via FTP
+      - name: 🚀 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
