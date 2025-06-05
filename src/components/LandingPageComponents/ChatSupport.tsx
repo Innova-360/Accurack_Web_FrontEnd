@@ -1,9 +1,3 @@
-
-
-
-
-
-
 import { IoMdSend } from 'react-icons/io';
 import { ImCross } from "react-icons/im";
 import React, { useState, useRef, useEffect } from 'react';
@@ -95,7 +89,7 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/chatbot', {
+      const response = await fetch(import.meta.env.VITE_CHATBOT_LINK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
