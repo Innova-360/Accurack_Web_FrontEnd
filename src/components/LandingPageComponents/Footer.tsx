@@ -61,8 +61,8 @@ function Footer() {
                         <ul className="space-y-2">
                             <li><Link to="#">Customer Support</Link></li>
                             <li><Link to="#">Delivery Details</Link></li>
-                            <li><Link to="#">Terms & Conditions</Link></li>
-                            <li><Link to="#">Privacy Policy</Link></li>
+                            <li><a href="/terms" target="_blank">Terms & Conditions</a></li>
+                            <li><a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
                         </ul>
                     </div>
 
