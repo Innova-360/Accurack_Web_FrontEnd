@@ -31,8 +31,8 @@ function Hero() {
 
         {/* Input & Button */}
         <div className='flex gap-2.5 justify-center md:justify-start lg:justify-start xl:justify-start items-center'>
-          <input type="text" placeholder='Input text here' className='hero-input' />
-          <PrimaryButton cssClasses='rounded-sm'>Request Demo-</PrimaryButton>
+          <input type="text" placeholder='Input text here' disabled className='hero-input' />
+          <PrimaryButton cssClasses='rounded-sm'>Request Demo</PrimaryButton>
         </div>
       </motion.div>
 
@@ -44,7 +44,7 @@ function Hero() {
         transition={{ duration: 0.5 }}
         className="hidden md:block w-[100%] h-[98vh] mt-20"
       >
-        <img src="/PhoneHero.png" className="w-full m-0 p-0" alt="picture" />
+        <img src="/phoneHero.png" className="m-0 p-0 h-[120%] object-cover relative right-0" alt="picture" />
       </motion.div>
 
       {/* Right Side - Mobile */}
