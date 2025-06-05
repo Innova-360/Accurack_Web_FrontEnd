@@ -1,0 +1,39 @@
+name: Deploy React to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create .env.production file
+        run: |
+          echo "VITE_CHATBOT_LINK=${{ secrets.VITE_CHATBOT_LINK }}" >> .env.production
+          echo "VITE_LEADS_LINK=${{ secrets.VITE_LEADS_LINK }}" >> .env.production
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: build
+          server-dir: public_html/
