@@ -31,10 +31,9 @@ type PortalDropdownProps = {
 };
 
 const links = [
-  'Product',
   'Features',
   'Industries',
-  'Resources',
+  'About',
   'Request Demo',
 ];
 

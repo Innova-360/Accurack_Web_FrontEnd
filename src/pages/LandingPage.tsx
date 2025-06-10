@@ -16,7 +16,7 @@ import Footer from "../components/LandingPageComponents/Footer";
 import ChatSupport from '../components/LandingPageComponents/ChatSupport';
 
 function LandingPage() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(true);
 
   return (
     <>

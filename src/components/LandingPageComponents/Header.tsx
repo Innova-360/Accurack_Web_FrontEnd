@@ -42,17 +42,17 @@ function Header() {
 
         {/* Nav Links - only on large screens */}
         <div className="hidden lg:flex justify-around md:gap-6 lg:gap-10 text-[var(--dark-primary)]">
-          <Link to="#">Product</Link>
           <Link to="#">Features</Link>
-          <Link to="#">Industries</Link>
-          <Link to="#">Resources</Link>
+          <Link to="#">Industries</Link>  
+          <Link to="#">About</Link> 
+          <Link to="#" >Get in touch</Link> 
         </div>
 
         {/* Buttons + Hamburger / Cross */}
         <div className="flex items-center gap-2.5">
           <SecondaryButton cssClasses='sec-button-hover'>Sign in</SecondaryButton>
           <div className="hidden lg:block">
-            <PrimaryButton handler={openLeadForm}>Get In Touch</PrimaryButton>
+            <PrimaryButton handler={openLeadForm}>Request Demo</PrimaryButton>
           </div>
 
           {/* Hamburger / Cross Icon Toggle */}
