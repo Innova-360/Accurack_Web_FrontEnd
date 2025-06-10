@@ -109,9 +109,10 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
   };
 
   if (!visible) return null;
+  // Removed invalid loading check; loadingId is used for loading state.
 
   return (
-    <div className="fixed bottom-[3%] right-[1%] w-[90%] sm:w-[320px] md:w-[320px] bg-white border border-gray-300 rounded-xl shadow-2xl z-[999999] flex flex-col overflow-hidden text-[13px] sm:text-[14px] min-h-[60vh]">
+    <div className="fixed bottom-[3%] right-[1%] w-[80%] sm:w-[320px] md:w-[320px] bg-white border border-gray-300 rounded-xl shadow-2xl z-[999999] flex flex-col overflow-hidden text-[13px] sm:text-[14px] min-h-[50vh]">
       <div className="bg-[var(--primary-color)] text-white px-3 py-1 sm:px-4 sm:py-2 flex items-center justify-between rounded-t-xl">
         <div className="flex items-center gap-2 sm:gap-3">
           <img

@@ -45,6 +45,7 @@
   padding: 7px;
   border: 1px solid #117D90;
   border-radius: 5px;
+  display:block;
 }
 
 
@@ -89,6 +90,7 @@
 
   .hero-input{
     width: 50%;
+    display: none;
 }
 }
 

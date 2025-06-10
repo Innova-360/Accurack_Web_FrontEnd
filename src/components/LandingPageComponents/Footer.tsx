@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 function Footer() {
     return (
         <footer className="bg-[#F8FAFC] text-white pt-10 mt-40 overflow-x-hidden">
-            {/* Newsletter */}
-            <div className="max-w-6xl mx-auto py-14 px-20 mt-20 w-[80%] bg-[var(--primary-color)] rounded-xl">
+            {/* Newsletter  -- will be implemented later */}
+
+            {/* <div className="max-w-6xl mx-auto py-14 px-20 mt-20 w-[80%] bg-[var(--primary-color)] rounded-xl">
                 <h2 className="text-2xl font-semibold text-center mb-6">
                     Subscribe to our newsletter
                 </h2>
@@ -25,18 +26,18 @@ function Footer() {
                         Subscribe Us
                     </button>
                 </div>
-            </div>
+            </div> */}
 
             {/* Footer Bottom */}
-            <div className="bg-[#F8FAFC] text-[#52525B] mt-30 pb-6">
-                <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+            <div className="bg-[#F8FAFC] text-[#52525B] pb-6 mt-10 md:text-lg">
+                <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-center">
                     {/* Logo */}
                     <div className="flex flex-col items-center md:items-start">
                         <div className="flex justify-center md:justify-start items-center space-x-2 mb-2">
                             <img src="/logo.svg" alt="Accurack Logo" className="w-12" />
                             <img src="/logoName.svg" alt="Accurack Logo" className="w-32" />
                         </div>
-                        <p className="text-sm">Accurack gives you the best inventory software solutions</p>
+                        <p className="text-sm md:text-lg md:text-left">Accurack gives you the best inventory software solutions</p>
                         <div className="flex justify-center md:justify-start space-x-3 mt-10 cursor-pointer">
                             <FaFacebook size={32} />
                             <FaTwitterSquare size={32} />
@@ -60,20 +61,8 @@ function Footer() {
                         <h3 className="font-semibold mb-7 text-[var(--primary-color)]">Help</h3>
                         <ul className="space-y-2">
                             <li><Link to="#">Customer Support</Link></li>
-                            <li><Link to="#">Delivery Details</Link></li>
                             <li><a href="/terms" target="_blank">Terms & Conditions</a></li>
                             <li><a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Resources */}
-                    <div>
-                        <h3 className="font-semibold mb-7 text-[var(--primary-color)]">Resources</h3>
-                        <ul className="space-y-2">
-                            <li><Link to="#">Free eBooks</Link></li>
-                            <li><Link to="#">Setup Tutorial</Link></li>
-                            <li><Link to="#">How to - Blog</Link></li>
-                            <li><Link to="#">Youtube Playlist</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -82,9 +71,9 @@ function Footer() {
                 {/* Bottom copyright */}
                 <div className="text-center text-sm border-t border-gray-200 pt-4 mt-24 flex flex-col gap-1.5">
                     <span>© Copyright 2022, All Rights Reserved by Accurack</span>
-                    <div className="flex justify-center items-center gap-7">          
-                        <Link to="#">Privacy & Policy</Link>
-                        <Link to="#">Terms & Conditions</Link>
+                    <div className="flex justify-center items-center gap-7">
+                        <a href="/terms" target="_blank">Terms & Conditions</a>
+                        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
                     </div>
                 </div>
             </div>
