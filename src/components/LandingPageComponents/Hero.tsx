@@ -3,6 +3,7 @@
 
 import { motion } from 'framer-motion';
 import PrimaryButton from './../Buttons/PrimaryButton';
+import SecondaryButton from '../Buttons/SecondaryButton';
 
 function Hero() {
   return (
@@ -25,14 +26,15 @@ function Hero() {
             Revolutionary <span className='text-[var(--primary-color)]'>Inventory</span> Management: Transform Your <span className='text-[var(--primary-color)]'>Business</span> Cashflow
           </h1>
           <p className='text-[#475569] text-sm'>
-            AI-powered system that resolves 87% of cashflow issues, trusted by 10,000+ businesses across 35 countries. Experience an average 32% reduction in excess inventory costs with our comprehensive solution
+            AI-powered system that resolves 87% of cashflow issues, trusted by 1000+ businesses across 35 countries. Experience an average 32% reduction in excess inventory costs with our comprehensive solution
           </p>
         </div>
 
         {/* Input & Button */}
         <div className='flex gap-2.5 justify-center md:justify-start lg:justify-start xl:justify-start items-center'>
-          <input type="text" placeholder='Input text here' disabled className='hero-input' />
+          {/* <input type="text" placeholder='Enter your email' disabled className='hero-input' /> */}
           <PrimaryButton cssClasses='rounded-sm'>Request Demo</PrimaryButton>
+          <SecondaryButton cssClasses='rounded-sm font-medium'>Get in touch</SecondaryButton>
         </div>
       </motion.div>
 
@@ -55,7 +57,7 @@ function Hero() {
         transition={{ duration: 0.5 }}
         className="md:hidden flex justify-center items-center w-full h-[50vh] mt-5"
       >
-        <img src="/phoneHeroFull.svg" className="w-[80%] mx-auto mt-4" alt="mobile version" />
+        <img src="/phoneHero.png" className="w-[80%] mx-auto mt-4" alt="mobile version" />
       </motion.div>
     </div>
   );

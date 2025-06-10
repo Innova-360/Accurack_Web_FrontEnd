@@ -42,10 +42,10 @@ function Header() {
 
         {/* Nav Links - only on large screens */}
         <div className="hidden lg:flex justify-around md:gap-6 lg:gap-10 text-[var(--dark-primary)]">
-          <Link to="#">Product</Link>
           <Link to="#">Features</Link>
-          <Link to="#">Industries</Link>
-          <Link to="#">Resources</Link>
+          <Link to="#">Industries</Link>  
+          <Link to="#">About</Link> 
+          <Link to="#">Request Demo</Link> 
         </div>
 
         {/* Buttons + Hamburger / Cross */}
