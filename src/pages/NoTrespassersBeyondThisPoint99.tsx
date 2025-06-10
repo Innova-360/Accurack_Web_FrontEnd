@@ -3,14 +3,13 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDnmm8PkbeNJ_Ppw1U5QBL4tsWqniLobS8",
-  authDomain: "accurack360.firebaseapp.com",
-  projectId: "accurack360",
-  storageBucket: "accurack360.firebasestorage.app",
-  messagingSenderId: "784659632157",
-  appId: "1:784659632157:web:623e23b7b4af61f08136f4"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
-
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

@@ -6,10 +6,10 @@ import LeadForm from '../Forms/LeadForm';
 import GetInTouch from '../Forms/GetInTouch';
 
 function Hero() {
- const [isMenuOpen, setIsMenuOpen] = useState(false);
+//  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [showGetInTouchForm, setShowGetInTouchForm] = useState(false);
-  const toggleMenu = () => setIsMenuOpen(prev => !prev);
+  // const toggleMenu = () => setIsMenuOpen(prev => !prev);
 
   const openLeadForm = () => {
     setShowLeadForm(true);
