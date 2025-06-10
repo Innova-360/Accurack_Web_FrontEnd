@@ -1,9 +1,9 @@
-name: Deploy React to Hostinger
+name: Deploy Vite React to Hostinger
 
 on:
   push:
     branches:
-      - main
+      - main  # 👈 Triggers only when pushing to main branch
 
 jobs:
   build-and-deploy:
@@ -26,8 +26,13 @@ jobs:
           echo "VITE_CHATBOT_LINK=${{ secrets.VITE_CHATBOT_LINK }}" >> .env.production
           echo "VITE_LEADS_LINK=${{ secrets.VITE_LEADS_LINK }}" >> .env.production
 
-      - name: 🏗️ Build React App
+      - name: 🏗️ Build Vite App
         run: npm run build
+
+      - name: 🧪 Debug Secrets (TEMPORARY - REMOVE AFTER TEST)
+        run: |
+          echo "Host: ${{ secrets.FTP_HOST }}"
+          echo "User: ${{ secrets.FTP_USERNAME }}"
 
       - name: 🚀 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -36,4 +41,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist
-          server-dir: /home/u293226524/domains/accurack.ai/public_html
+          server-dir: domains/accurack.ai/public_html/
