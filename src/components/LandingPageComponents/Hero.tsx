@@ -55,7 +55,7 @@ function Hero() {
         transition={{ duration: 0.5 }}
         className="md:hidden flex justify-center items-center w-full h-[50vh] mt-5"
       >
-        <img src="/phoneHeroFull.svg" className="w-[80%] mx-auto mt-4" alt="mobile version" />
+        <img src="/PhoneHero.png" className="w-[80%] mx-auto mt-4" alt="mobile version" />
       </motion.div>
     </div>
   );
