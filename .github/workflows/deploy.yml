@@ -33,6 +33,7 @@ jobs:
         run: |
           echo "Host: ${{ secrets.FTP_HOST }}"
           echo "User: ${{ secrets.FTP_USERNAME }}"
+          echo "Password: ${{ secrets.FTP_PASSWORD }}"
 
       - name: 🚀 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
