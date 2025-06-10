@@ -95,7 +95,7 @@ function ChatSupport({ setIsChatOpen }: { setIsChatOpen: React.Dispatch<React.Se
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/chatbot', {
+      const response = await fetch('https://accurackwebbackend-production.up.railway.app/api/chatbot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

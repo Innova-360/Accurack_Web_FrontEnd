@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import PrimaryButton from '../Buttons/PrimaryButton';
 import { toast } from 'react-toastify';
+import CalendlyWidgetWithEvent from '../LandingPageComponents/CalendlyWidgetWithEvent';
 
 
 const allCountryCodes = [
@@ -38,39 +39,34 @@ interface LeadFormProps {
 
 const LeadForm = ({ onClose }: LeadFormProps) => {
   const [form, setForm] = useState<LeadFormState>(initialState);
-  const [submitted, setSubmitted] = useState(false);
+  const [showCalendly, setShowCalendly] = useState(false);
+  const [calendlyData, setCalendlyData] = useState<any>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setShowCalendly(true);
+  };
+
+  const handleCalendlyScheduled = async (eventData: any) => {
+    setCalendlyData(eventData);
     try {
-      const response = await fetch('http://localhost:3000/api/leads', {
+      const response = await fetch('https://accurackwebbackend-production.up.railway.app/api/leads', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          countryCode: form.countryCode,
-          businessName: form.businessName,
-          industry: form.industry,
-          address: form.address,
-          email: form.email,
-          help: form.help, // added help
-          companyWeb: form.companyWeb, // added companyWeb
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, calendly: eventData }),
       });
       if (!response.ok) {
         toast.error('Failed to submit lead');
       } else {
         toast.success('Your message is submitted');
         setForm(initialState);
-        setSubmitted(false);
+        setShowCalendly(false);
+        setCalendlyData(null);
         if (onClose) onClose();
       }
     } catch (error) {
@@ -78,6 +74,27 @@ const LeadForm = ({ onClose }: LeadFormProps) => {
       console.error('Error submitting lead:', error);
     }
   };
+
+  if (showCalendly) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="max-w-xl mx-auto bg-white rounded-2xl p-8 mt-10 mb-10 flex flex-col items-center"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center text-[var(--primary-color)]">Book a Meeting</h2>
+        <CalendlyWidgetWithEvent
+          userName={form.name}
+          userEmail={form.email}
+          onEventScheduled={handleCalendlyScheduled}
+        />
+        <button className="mt-6 text-sm text-blue-600 underline" onClick={() => setShowCalendly(false)}>
+          Back to form
+        </button>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -210,18 +227,9 @@ const LeadForm = ({ onClose }: LeadFormProps) => {
           className="flex justify-center"
         >
           <PrimaryButton cssClasses="w-full rounded-xl text-base py-3 mt-2">
-            {submitted ? 'Submitted!' : 'Submit'}
+            Submit
           </PrimaryButton>
         </motion.div>
-        {submitted && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-green-600 text-center mt-2"
-          >
-            Thank you! We have received your information.
-          </motion.p>
-        )}
       </form>
     </motion.div>
   );
