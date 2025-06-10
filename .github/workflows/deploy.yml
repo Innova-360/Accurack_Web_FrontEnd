@@ -30,10 +30,19 @@ jobs:
         run: npm run build
 
       - name: 🚀  Deploy to Hostinger via FTP
+ jobs:
+  ftp-deploy:
+    name: Upload files via FTP
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📂 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🚀 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: build
-          server-dir: /home/u293226524/domains/accurack.ai/public_html
+          server-dir: public_html/
