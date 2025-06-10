@@ -29,7 +29,7 @@ jobs:
       - name: 🏗️ Build React App
         run: npm run build
 
-      - name: 🚀 Deploy to Hostinger via FTP
+      - name:  Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
