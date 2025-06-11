@@ -42,7 +42,7 @@ interface LeadFormProps {
 const LeadForm = ({ onClose }: LeadFormProps) => {
   const [form, setForm] = useState<LeadFormState>(initialState);
   const [showCalendly, setShowCalendly] = useState(false);
-  const [calendlyData, setCalendlyData] = useState<any>(null);
+  const [, setCalendlyData] = useState<any>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
