@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import PrimaryButton from '../Buttons/PrimaryButton';
 import { toast } from 'react-toastify';
 import CalendlyWidgetWithEvent from '../LandingPageComponents/CalendlyWidgetWithEvent';
+import { db } from '../../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 
 // const allCountryCodes = [
@@ -71,7 +73,6 @@ const LeadForm = ({ onClose }: LeadFormProps) => {
         }
       });
 
-
       if (!res.ok || !res2.ok) {
         throw new Error('Failed to fetch invitee data from Calendly');
       }
@@ -79,8 +80,8 @@ const LeadForm = ({ onClose }: LeadFormProps) => {
       const inviteeData = await res.json();
       const invitee = inviteeData.resource;
 
-      const eventData = await res2.json();
-      const eventResource = eventData.resource;
+      const eventDataJson = await res2.json();
+      const eventResource = eventDataJson.resource;
       console.log('Event Resource:', eventResource);
 
       // Now combine the Calendly + form data
@@ -95,31 +96,18 @@ const LeadForm = ({ onClose }: LeadFormProps) => {
         }
       };
 
-        
-      // const response = await fetch(import.meta.env.VITE_LEADS_LINK, {
-      const response = await fetch("http://localhost:3000/api/leads", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fullLead)
-      });
-
-      if (!response.ok) {
-        toast.error('Failed to submit lead');
-      } else {
-        toast.success('Your message is submitted');
-        setForm(initialState);
-        setShowCalendly(false);
-        setCalendlyData(null);
-        console.log(calendlyData);
-
-        if (onClose) onClose();
-      }
+      // Send to Firestore instead of backend
+      await addDoc(collection(db, 'leads'), fullLead);
+      toast.success('Your message is submitted');
+      setForm(initialState);
+      setShowCalendly(false);
+      setCalendlyData(null);
+      if (onClose) onClose();
     } catch (err) {
       console.error('Error during Calendly processing:', err);
       toast.error('Error submitting Calendly lead');
     }
   };
-
 
   if (showCalendly) {
     return (

@@ -20,7 +20,16 @@
     "react-parallax-tilt": "^1.7.295",
     "react-router": "^7.6.0",
     "react-router-dom": "^7.6.0",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "firestore": "^1.1.6",
+    "tailwindcss": "^4.1.8",
+     "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "firebase-admin": "^13.4.0",
+    "googleapis": "^149.0.0",
+    "mongoose": "^8.15.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
