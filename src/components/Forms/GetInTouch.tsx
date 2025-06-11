@@ -46,7 +46,9 @@ const GetInTouch = ({ onClose }: GetInTouchProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(import.meta.env.VITE_GETINTOUCH_LINK, {
+      console.log('Submitting form:', form);
+      // const response = await fetch(import.meta.env.VITE_GETINTOUCH_LINK, {
+      const response = await fetch("http://localhost:3000/api/getintouch", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

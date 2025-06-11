@@ -3,7 +3,7 @@ name: Deploy Vite React to Hostinger
 on:
   push:
     branches:
-      - main  # 👈 Triggers only when pushing to main branch
+      - main
 
 jobs:
   build-and-deploy:
@@ -25,15 +25,29 @@ jobs:
         run: |
           echo "VITE_CHATBOT_LINK=${{ secrets.VITE_CHATBOT_LINK }}" >> .env.production
           echo "VITE_LEADS_LINK=${{ secrets.VITE_LEADS_LINK }}" >> .env.production
+          echo "VITE_GETINTOUCH_LINK=${{ secrets.VITE_GETINTOUCH_LINK }}" >> .env.production
+          echo "VITE_PUBLIC_CALENDLY_API_KEY=${{ secrets.VITE_PUBLIC_CALENDLY_API_KEY }}" >> .env.production
+          echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" >> .env.production
+          echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> .env.production
+          echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }}" >> .env.production
+          echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}" >> .env.production
+          echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}" >> .env.production
+          echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> .env.production
 
       - name: 🏗️ Build Vite App
         run: npm run build
 
-      - name:  Debug Secrets (TEMPORARY - REMOVE AFTER TEST)
+      - name: 📄 Add .htaccess for Vite SPA routing
         run: |
-          echo "Host: ${{ secrets.FTP_HOST }}"
-          echo "User: ${{ secrets.FTP_USERNAME }}"
-          echo "Password: ${{ secrets.FTP_PASSWORD }}"
+          echo '<IfModule mod_rewrite.c>
+          RewriteEngine On
+          RewriteBase /
+
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+
+          RewriteRule ^ index.html [QSA,L]
+          </IfModule>' > dist/.htaccess
 
       - name: 🚀 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
