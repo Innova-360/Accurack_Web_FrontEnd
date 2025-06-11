@@ -30,7 +30,7 @@ function Footer() {
 
             {/* Footer Bottom */}
             <div className="bg-[#F8FAFC] text-[#52525B] pb-6 mt-10 md:text-lg">
-                <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-center">
+                <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-center">
                     {/* Logo */}
                     <div className="flex flex-col items-center md:items-start">
                         <div className="flex justify-center md:justify-start items-center space-x-2 mb-2">
@@ -47,26 +47,41 @@ function Footer() {
 
                     {/* Company */}
                     <div>
-                        <h3 className="font-semibold mb-7 text-[var(--primary-color)]">Company</h3>
+                        <h3 className="font-semibold mb-7 text-[var(--primary-color)] text-center md:text-left">Company</h3>
                         <ul className="space-y-2">
-                            <li><Link to="#">About</Link></li>
-                            <li><Link to="#">Features</Link></li>
-                            <li><Link to="#">Works</Link></li>
-                            <li><Link to="#">Career</Link></li>
+                            <li className="flex flex-col items-center md:items-start"><Link to="#">About</Link></li>
+                            <li className="flex flex-col items-center md:items-start"><Link to="#">Features</Link></li>
+                            <li className="flex flex-col items-center md:items-start"><Link to="#">Works</Link></li>
+                            <li className="flex flex-col items-center md:items-start"><Link to="#">Career</Link></li>
                         </ul>
                     </div>
 
                     {/* Help */}
                     <div>
-                        <h3 className="font-semibold mb-7 text-[var(--primary-color)]">Help</h3>
+                        <h3 className="font-semibold mb-7 text-[var(--primary-color)] text-center md:text-left">Help</h3>
                         <ul className="space-y-2">
-                            <li><Link to="#">Customer Support</Link></li>
-                            <li><a href="/terms" target="_blank">Terms & Conditions</a></li>
-                            <li><a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+                            <li className="flex flex-col items-center md:items-start"><Link to="#">Customer Support</Link></li>
+                            <li className="flex flex-col items-center md:items-start"><a href="/terms" target="_blank">Terms & Conditions</a></li>
+                            <li className="flex flex-col items-center md:items-start"><a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+
+                    {/* Contact */}
+                    <div className="text-center md:text-left">
+                        <h3 className="font-semibold mb-7 text-[var(--primary-color)]">Contact</h3>
+                        <ul className="space-y-2">
+                            <li className="flex flex-col items-center md:items-start">
+                                2055 Craigshire Rd,<br />Suite 410, St. Louis, MO 63146
+                            </li>
+                            <li className="flex flex-col items-center md:items-start">
+                                314-970-2115
+                            </li>
+                            <li className="flex flex-col items-center md:items-start">
+                                info@accurack.ai
+                            </li>
                         </ul>
                     </div>
                 </div>
-
 
                 {/* Bottom copyright */}
                 <div className="text-center text-sm border-t border-gray-200 pt-4 mt-24 flex flex-col gap-1.5">
