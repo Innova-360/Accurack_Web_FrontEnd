@@ -7,7 +7,7 @@ interface CalendlyWidgetProps {
 }
 
 const CalendlyWidget = ({ userName, userEmail, onEventScheduled }: CalendlyWidgetProps) => {
-  const calendlyUrl = `https://calendly.com/abdulahad-era?hide_landing_page_details=1&hide_gdpr_banner=1&name=${encodeURIComponent(userName)}&email=${encodeURIComponent(userEmail)}`;
+  const calendlyUrl = `https://calendly.com/accurackllc?hide_landing_page_details=1&hide_gdpr_banner=1&name=${encodeURIComponent(userName)}&email=${encodeURIComponent(userEmail)}`;
 
   useEffect(() => {
     const script = document.createElement("script");
