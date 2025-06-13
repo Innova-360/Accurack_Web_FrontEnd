@@ -22,10 +22,10 @@ function LandingPage() {
     <>
       <Header />
       {isChatOpen == false ? (<img
-        src="chatIcon.svg"
+        src="/logo.svg"
         alt="chat"
         onClick={() => setIsChatOpen(!isChatOpen)}
-        className="cursor-pointer bottom-[3%] fixed right-[3%] z-[999999]"
+        className="cursor-pointer bottom-[3%] h-[68px] fixed right-[3%] z-[999999]"
       />) 
       :
         <ChatSupport setIsChatOpen={setIsChatOpen}/>
